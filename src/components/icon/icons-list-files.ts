@@ -1,16 +1,17 @@
 import { FiEdit3, FiFileText } from "react-icons/fi";
-import { IoFlagSharp, IoInformationCircleOutline } from "react-icons/io5";
+import { IoFlagSharp } from "react-icons/io5";
 import {
   LuClipboard,
   LuCopy,
   LuEllipsisVertical,
+  LuInfo,
   LuPlus,
   LuTrash,
 } from "react-icons/lu";
 
 export const iconFileNames = {
   document: { icon: FiFileText },
-  info: { icon: IoInformationCircleOutline },
+  info: { icon: LuInfo },
   edit: { icon: FiEdit3 },
   copy: { icon: LuClipboard },
   flag: { icon: IoFlagSharp },
