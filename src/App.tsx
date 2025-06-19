@@ -1,11 +1,12 @@
 import React from "react";
 
+import { closestCorners, DndContext, type DragEndEvent } from "@dnd-kit/core";
 import {
-  DndContext,
-  type DragEndEvent,
-  useDraggable,
-  useDroppable,
-} from "@dnd-kit/core";
+  horizontalListSortingStrategy,
+  SortableContext,
+  useSortable,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import classNames from "classnames";
 
 import { Icon } from "@/components/icon";
@@ -66,33 +67,28 @@ const Button = React.forwardRef<HTMLButtonElement, CustomButton>(
 
 Button.displayName = "Button";
 
-const LiItem = ({ children }: { children: React.ReactNode }) => {
-  return <li className="flex items-center">{children}</li>;
-};
-
-const DraggableItem = ({
+const DraggableListItem = ({
   id,
   children,
 }: {
   id: string;
   children: React.ReactNode;
 }) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id });
 
   return (
-    <Button
+    <li
       ref={setNodeRef}
       {...listeners}
       {...attributes}
       style={{
-        transform: transform
-          ? `translate(${transform.x}px, ${transform.y}px)`
-          : undefined,
+        transition,
+        transform: CSS.Transform.toString(transform),
       }}
-      className="rounded bg-blue-200 px-3 py-1"
     >
       {children}
-    </Button>
+    </li>
   );
 };
 
@@ -104,22 +100,10 @@ function App() {
   );
 }
 
-const DroppableItem = ({
-  id,
-  children,
-}: {
-  id: string;
-  children: React.ReactNode;
-}) => {
-  const { setNodeRef } = useDroppable({ id });
-
-  return <div ref={setNodeRef}>{children}</div>;
-};
-
 const defaultPages = [
-  { id: generateId(), name: "Home" },
-  { id: generateId(), name: "About" },
-  { id: generateId(), name: "Contact" },
+  { id: generateId(), name: "Info" },
+  { id: generateId(), name: "Details" },
+  { id: generateId(), name: "Other" },
 ];
 
 type Page = {
@@ -133,46 +117,60 @@ const Nav = () => {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
-    if (active.id !== over?.id) {
-      const oldIndex = pages.findIndex((page) => page.id === active.id);
-      const newIndex = pages.findIndex((page) => page.id === over?.id);
+    if (active.id === over?.id) return;
 
-      const updatedPages = Array.from(pages);
-      const [movedPage] = updatedPages.splice(oldIndex, 1);
-      updatedPages.splice(newIndex, 0, movedPage);
+    const oldIndex = pages.findIndex((page) => page.id === active.id);
+    const newIndex = pages.findIndex((page) => page.id === over?.id);
 
-      setPages(updatedPages);
-    }
+    const updatedPages = Array.from(pages);
+    const [movedPage] = updatedPages.splice(oldIndex, 1);
+    updatedPages.splice(newIndex, 0, movedPage);
+
+    setPages(updatedPages);
   };
 
-  const addPage = () => {
+  const handleAddPage = (currPageId?: string) => {
     const newPage = { id: generateId(), name: `Page ${pages.length + 1}` };
+    if (currPageId) {
+      const index = pages.findIndex((page) => page.id === currPageId);
+      if (index !== -1) {
+        setPages((prev) => [
+          ...prev.slice(0, index + 1),
+          newPage,
+          ...prev.slice(index + 1),
+        ]);
+        return;
+      }
+    }
     setPages((prev) => [...prev, newPage]);
   };
 
-  const handleAddPage = () => {
-    addPage();
-  };
-
   return (
-    <DndContext onDragEnd={handleDragEnd}>
-      <ul className="gap flex w-full border border-green-500 p-5">
-        {pages.map((page, idx) => (
-          <LiItem key={page.id}>
-            <DroppableItem id={page.id}>
-              <DraggableItem id={page.id}>{page.name}</DraggableItem>
-            </DroppableItem>
-            {idx !== pages.length - 1 && (
-              <li className="flex items-center">
-                <AddPageButton onClick={handleAddPage} />
-              </li>
-            )}
-          </LiItem>
-        ))}
-        <li>
-          <Button onClick={handleAddPage}>Add Page</Button>
-        </li>
-      </ul>
+    <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
+      <SortableContext
+        items={pages.map((page) => page.id)}
+        strategy={horizontalListSortingStrategy}
+      >
+        <ul className="gap flex w-full border border-green-500 p-5">
+          {pages.map((page, idx) => (
+            <React.Fragment key={page.id}>
+              <DraggableListItem id={page.id}>
+                <Button onClick={() => alert(`hello ${page.name}`)}>
+                  {page.name}
+                </Button>
+              </DraggableListItem>
+              {idx !== pages.length - 1 && (
+                <li className="flex items-center">
+                  <AddPageButton onClick={() => handleAddPage(page.id)} />
+                </li>
+              )}
+            </React.Fragment>
+          ))}
+          <li>
+            <Button onClick={() => handleAddPage()}>Add Page</Button>
+          </li>
+        </ul>
+      </SortableContext>
     </DndContext>
   );
 };
