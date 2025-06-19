@@ -21,7 +21,10 @@ const Button = ({ children }: CustomButton) => {
   return (
     <ButtonPrimitive
       className={classNames(
-        "group flex gap-2 !rounded-sm border !bg-gray-100 !p-4 !pl-3 !text-sm !text-black hover:!bg-gray-200 focus:!bg-white active:!border-gray-300/60 active:!bg-white",
+        "group flex gap-2 !rounded-sm border !bg-gray-100 !p-4 !pl-3 !text-sm !text-black !shadow-none",
+        "hover:!border-transparent hover:!bg-gray-200",
+        "focus:!border-blue-400 focus:!bg-white focus:!ring-2 focus:!ring-gray-300/60 focus:!outline-none",
+        "active:!ring-none focus:!shadow-sm active:!border-gray-300/60 active:!bg-white active:!ring-0",
         classNames
       )}
     >
