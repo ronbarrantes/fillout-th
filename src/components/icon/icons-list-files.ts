@@ -1,27 +1,23 @@
+import { FiEdit3, FiFileText } from "react-icons/fi";
+import { IoFlagSharp, IoInformationCircleOutline } from "react-icons/io5";
 import {
-  FiClipboard,
-  FiEdit3,
-  FiFileText,
-  FiMoreVertical,
-  FiPlus,
-} from "react-icons/fi";
-import { HiOutlineTrash } from "react-icons/hi";
-import {
-  IoCopyOutline,
-  IoFlagSharp,
-  IoInformationCircleOutline,
-} from "react-icons/io5";
+  LuClipboard,
+  LuCopy,
+  LuEllipsisVertical,
+  LuPlus,
+  LuTrash,
+} from "react-icons/lu";
 
 export const iconFileNames = {
   document: { icon: FiFileText },
   info: { icon: IoInformationCircleOutline },
   edit: { icon: FiEdit3 },
-  copy: { icon: FiClipboard },
+  copy: { icon: LuClipboard },
   flag: { icon: IoFlagSharp },
-  duplicate: { icon: IoCopyOutline },
-  delete: { icon: HiOutlineTrash },
-  add: { icon: FiPlus },
-  more: { FiMoreVertical },
+  duplicate: { icon: LuCopy },
+  delete: { icon: LuTrash },
+  add: { icon: LuPlus },
+  more: { icon: LuEllipsisVertical },
 };
 
 import {} from "react-icons/fi";
