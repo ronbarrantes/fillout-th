@@ -1,6 +1,13 @@
 import React from "react";
 
-import { closestCorners, DndContext, type DragEndEvent } from "@dnd-kit/core";
+import {
+  closestCorners,
+  DndContext,
+  type DragEndEvent,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import {
   horizontalListSortingStrategy,
   SortableContext,
@@ -155,8 +162,21 @@ const useDrag = () => {
 const Nav = () => {
   const { pages, handleDragEnd, handleAddPage } = useDrag();
 
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        delay: 100,
+        tolerance: 5,
+      },
+    })
+  );
+
   return (
-    <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
+    <DndContext
+      collisionDetection={closestCorners}
+      sensors={sensors}
+      onDragEnd={handleDragEnd}
+    >
       <SortableContext
         items={pages.map((page) => page.id)}
         strategy={horizontalListSortingStrategy}
@@ -165,7 +185,10 @@ const Nav = () => {
           {pages.map((page, idx) => (
             <React.Fragment key={page.id}>
               <DraggableListItem id={page.id}>
-                <Button onClick={() => alert(`hello ${page.name}`)}>
+                <Button
+                  onClick={() => console.log(`Clicked ${page.name}`)}
+                  className="w-full"
+                >
                   {page.name}
                 </Button>
               </DraggableListItem>
