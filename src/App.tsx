@@ -111,7 +111,7 @@ type Page = {
   name: string;
 };
 
-const Nav = () => {
+const useDrag = () => {
   const [pages, setPages] = React.useState<Page[]>(defaultPages);
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -144,6 +144,16 @@ const Nav = () => {
     }
     setPages((prev) => [...prev, newPage]);
   };
+
+  return {
+    pages,
+    handleDragEnd,
+    handleAddPage,
+  };
+};
+
+const Nav = () => {
+  const { pages, handleDragEnd, handleAddPage } = useDrag();
 
   return (
     <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
