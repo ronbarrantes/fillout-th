@@ -72,7 +72,7 @@ const Button = ({
         "group flex gap-2 !rounded-md border !bg-gray-100 !p-4 !pl-3 !text-sm !text-slate-500 !shadow-none",
         "hover:!border-transparent hover:!bg-gray-200 hover:!text-slate-600",
         "focus:!border-blue-400 focus:!bg-white focus:!text-black focus:!ring-2 focus:!ring-gray-300/60 focus:!outline-none",
-        "active:!ring-none focus:!shadow-sm active:!border-gray-300/60 active:!bg-white active:!ring-0",
+        "active:!ring-none focus:!shadow-sm active:!border-gray-300/60 active:!bg-white active:!pr-3 active:!ring-0",
         className
       )}
     >
@@ -85,11 +85,10 @@ const Button = ({
         name="info"
       />
       {children}
+      <Icon name="more" className="hidden group-active:block" />
     </ButtonPrimitive>
   );
 };
-
-Button.displayName = "Button";
 
 const DraggableListItem = ({
   id,
@@ -118,8 +117,10 @@ const DraggableListItem = ({
 
 function App() {
   return (
-    <div className="flex h-screen w-screen items-center justify-center overflow-hidden border border-red-500">
-      <Nav />
+    <div className="flex h-screen w-screen items-center justify-center overflow-hidden overflow-x-scroll border border-red-500">
+      <div className="">
+        <Nav />
+      </div>
     </div>
   );
 }
@@ -127,6 +128,18 @@ function App() {
 const defaultPages = [
   { id: generateId(), name: "Info" },
   { id: generateId(), name: "Details" },
+  { id: generateId(), name: "Other" },
+  { id: generateId(), name: "Other" },
+  { id: generateId(), name: "Other" },
+  { id: generateId(), name: "Other" },
+  { id: generateId(), name: "Other" },
+  { id: generateId(), name: "Other" },
+  { id: generateId(), name: "Other" },
+  { id: generateId(), name: "Other" },
+  { id: generateId(), name: "Other" },
+  { id: generateId(), name: "Other" },
+  { id: generateId(), name: "Other" },
+  { id: generateId(), name: "Other" },
   { id: generateId(), name: "Other" },
 ];
 
@@ -198,7 +211,7 @@ const Nav = () => {
         items={pages.map((page) => page.id)}
         strategy={horizontalListSortingStrategy}
       >
-        <ul className="gap flex w-full border border-green-500 p-5">
+        <ul className="gap flex w-fit border border-green-500">
           {pages.map((page, idx) => (
             <React.Fragment key={page.id}>
               <DraggableListItem id={page.id}>
