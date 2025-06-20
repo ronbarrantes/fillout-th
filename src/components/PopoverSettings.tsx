@@ -21,7 +21,7 @@ export const PopoverSettings = ({
     <Popover>
       <PopoverTrigger asChild>{children}</PopoverTrigger>
       <PopoverContent className="w-54 p-0">
-        <div className="grid gap-2">
+        <div className="grid">
           <div className="">
             <h4 className="m-0 p-4 text-lg leading-none font-medium">
               Settings
@@ -44,11 +44,11 @@ export const PopoverSettings = ({
               <span>Duplicate</span>
             </PopoverButton>
             <Separator />
-            <PopoverButton className="w-full justify-start rounded-2xl py-4">
-              <Icon name="delete" className="size-5 text-red-500" />
-              <span className="text-red-500">Delete</span>
-            </PopoverButton>
           </div>
+          <PopoverButton className="h-10 w-full justify-start rounded-2xl py-4">
+            <Icon name="delete" className="size-5 text-red-500" />
+            <span className="text-red-500">Delete</span>
+          </PopoverButton>
         </div>
       </PopoverContent>
     </Popover>

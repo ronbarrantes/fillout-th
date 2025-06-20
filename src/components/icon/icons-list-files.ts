@@ -7,8 +7,8 @@ import {
   LuEllipsisVertical,
   LuInfo,
   LuPlus,
-  LuTrash,
 } from "react-icons/lu";
+import { TbTrash } from "react-icons/tb";
 
 export const iconFileNames = {
   document: { icon: FiFileText },
@@ -18,7 +18,7 @@ export const iconFileNames = {
   check: { icon: LuCircleCheck },
   flag: { icon: IoFlagSharp },
   duplicate: { icon: LuCopy },
-  delete: { icon: LuTrash },
+  delete: { icon: TbTrash },
   add: { icon: LuPlus },
   more: { icon: LuEllipsisVertical },
 };
