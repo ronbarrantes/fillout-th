@@ -2,8 +2,8 @@ import { Nav } from "@/components/Nav";
 
 function App() {
   return (
-    <div className="flex h-full w-screen items-center justify-center overflow-hidden overflow-x-auto border border-red-500">
-      <Nav className="gap flex min-w-full border border-green-500" />
+    <div className="m-auto flex h-full w-full max-w-screen-xl items-center justify-center overflow-hidden overflow-x-auto">
+      <Nav className="gap flex min-w-full px-4 py-5 after:border after:border-amber-50 after:content-['']" />
     </div>
   );
 }

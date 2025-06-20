@@ -15,37 +15,44 @@ type CustomButton = {
 
 export const AddPageButtonIcon = ({ onClick }: { onClick: () => void }) => {
   return (
-    <ButtonPrimitive
-      onClick={onClick}
-      className={classNames(
-        "group !m-0 !w-0 !border-none !bg-transparent !p-3 text-sm !text-black shadow-none",
-        "hover:!px-8",
-        "focus:!outline-none"
-      )}
-    >
-      <Icon
-        name="add"
+    <div className={classNames("group flex h-full items-center")}>
+      <span className="w-5 border-t-2 border-dashed border-gray-300">
+        {/*spacer*/}
+      </span>
+      <ButtonPrimitive
+        onClick={onClick}
         className={classNames(
-          "hidden transition-all",
-          "m-0 size-0 rounded-full border border-slate-300/60 bg-white p-0.5 group-hover:size-4.5",
-          "group-hover:flex group-hover:shadow-sm group-hover:!outline-none hover:!border-slate-400"
+          "m-0 hidden size-0 w-0 !rounded-full !border !border-slate-300/60 !bg-white !p-0.5 !text-black",
+          "group-hover:flex group-hover:size-4.5 group-hover:shadow-sm group-hover:!outline-none hover:!border-slate-300"
         )}
-      />
-
-      <span className="sr-only">Add page</span>
-    </ButtonPrimitive>
+      >
+        <Icon name="add" className={classNames()} />
+        <span className="sr-only">Add page</span>
+      </ButtonPrimitive>
+      <span className="hidden w-5 border-t-2 border-dashed border-gray-300 group-hover:flex">
+        {/*spacer*/}
+      </span>
+    </div>
   );
 };
 
 export const AddPageButton = ({ onClick }: { onClick: () => void }) => {
   return (
-    <ButtonPrimitive
-      onClick={onClick}
-      className="group ml-6 flex gap-2 !rounded-md border !border-slate-300/60 !bg-white !p-4 !pl-3 text-sm !text-black hover:!border-slate-400 hover:shadow-sm hover:!outline-none focus:!outline-none"
-    >
-      <Icon name="add" className="m-0 size-5 p-0 group-hover:text-amber-500" />
-      <span>Add page</span>
-    </ButtonPrimitive>
+    <div className={classNames("flex h-full items-center")}>
+      <span className="w-5 border-t-2 border-dashed border-gray-300">
+        {/*spacer*/}
+      </span>
+      <ButtonPrimitive
+        onClick={onClick}
+        className="group flex gap-2 !rounded-md border !border-slate-300/60 !bg-white !p-4 !pl-3 text-sm !text-black hover:!border-slate-400 hover:shadow-sm hover:!outline-none focus:!outline-none"
+      >
+        <Icon
+          name="add"
+          className="m-0 size-5 p-0 group-hover:text-amber-500"
+        />
+        <span>Add page</span>
+      </ButtonPrimitive>
+    </div>
   );
 };
 
