@@ -117,10 +117,8 @@ const DraggableListItem = ({
 
 function App() {
   return (
-    <div className="flex h-screen w-screen items-center justify-center overflow-hidden overflow-x-scroll border border-red-500">
-      <div className="">
-        <Nav />
-      </div>
+    <div className="flex h-full w-screen items-center justify-center overflow-hidden overflow-x-auto border border-red-500">
+      <Nav className="gap flex min-w-full border border-green-500" />
     </div>
   );
 }
@@ -128,8 +126,6 @@ function App() {
 const defaultPages = [
   { id: generateId(), name: "Info" },
   { id: generateId(), name: "Details" },
-  { id: generateId(), name: "Other" },
-  { id: generateId(), name: "Other" },
   { id: generateId(), name: "Other" },
   { id: generateId(), name: "Other" },
   { id: generateId(), name: "Other" },
@@ -189,7 +185,7 @@ const useDrag = () => {
   };
 };
 
-const Nav = () => {
+const Nav = ({ className }: { className: string }) => {
   const { pages, handleDragEnd, handleAddPage } = useDrag();
 
   const sensors = useSensors(
@@ -211,7 +207,7 @@ const Nav = () => {
         items={pages.map((page) => page.id)}
         strategy={horizontalListSortingStrategy}
       >
-        <ul className="gap flex w-fit border border-green-500">
+        <ul className={className}>
           {pages.map((page, idx) => (
             <React.Fragment key={page.id}>
               <DraggableListItem id={page.id}>
