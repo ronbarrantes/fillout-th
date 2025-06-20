@@ -15,6 +15,11 @@ const defaultPages = [
   { id: generateId(), name: "Other" },
 ];
 
+/**
+ * useDrag hook
+ * This hook manages the state of draggable pages.
+ * It provides functionality to handle drag and drop events, add new pages, and maintain the order of pages.
+ */
 export const useDrag = () => {
   const [pages, setPages] = React.useState<Page[]>(defaultPages);
 

@@ -7,12 +7,18 @@ import { Button as ButtonPrimitive } from "@/components/ui/button";
 
 type CustomButton = {
   children: React.ReactNode;
+  draggableId?: string;
   className?: string;
   style?: React.CSSProperties;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   iconClassName?: string;
 };
 
+/**
+ * AddPageButtonIcon component
+ * This component renders a button with an icon to add a new page.
+ * It uses the `ButtonPrimitive` component from the UI library.
+ */
 export const AddPageButtonIcon = ({ onClick }: { onClick: () => void }) => {
   return (
     <div className={classNames("group flex h-full items-center")}>
@@ -36,6 +42,11 @@ export const AddPageButtonIcon = ({ onClick }: { onClick: () => void }) => {
   );
 };
 
+/**
+ * AddPageButton component
+ * This component renders a button to add a new page.
+ * It uses the `ButtonPrimitive` component from the UI library.
+ */
 export const AddPageButton = ({ onClick }: { onClick: () => void }) => {
   return (
     <div className={classNames("flex h-full items-center")}>
@@ -56,15 +67,46 @@ export const AddPageButton = ({ onClick }: { onClick: () => void }) => {
   );
 };
 
-export const Button = ({
+/**
+ * PopoverButton component
+ * This component renders a button that can be used within a popover.
+ * It uses the `ButtonPrimitive` component from the UI library.
+ */
+export const PopoverButton = ({
   style,
   children,
-  iconClassName,
   className,
   onClick,
+  ...props
 }: CustomButton) => {
   return (
     <ButtonPrimitive
+      style={style}
+      onClick={onClick}
+      className={classNames(
+        "group !ring-none flex gap-2 !rounded-none !border-none !bg-transparent !p-4 !pl-3 !text-sm !text-black !shadow-none !outline-none",
+        "hover:!border-transparent hover:!bg-gray-200",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </ButtonPrimitive>
+  );
+};
+
+/**
+ * Button component
+ * This component renders a button with various styles and behaviors.
+ * It uses the `ButtonPrimitive` component from the UI library.
+ */
+export const DraggableButton = React.forwardRef<
+  HTMLButtonElement,
+  CustomButton & React.HTMLAttributes<HTMLButtonElement>
+>(({ style, children, className, onClick, ...props }, ref) => {
+  return (
+    <ButtonPrimitive
+      ref={ref}
       style={style}
       onClick={onClick}
       className={classNames(
@@ -74,17 +116,11 @@ export const Button = ({
         "active:!ring-none focus:!shadow-sm active:!border-gray-300/60 active:!bg-white active:!pr-3 active:!ring-0",
         className
       )}
+      {...props}
     >
-      <Icon
-        className={classNames(
-          "m-0 size-5 p-0",
-          "group-focus:text-amber-500",
-          iconClassName
-        )}
-        name="info"
-      />
       {children}
-      <Icon name="more" className="hidden group-active:block" />
     </ButtonPrimitive>
   );
-};
+});
+
+DraggableButton.displayName = "DraggableButton";
