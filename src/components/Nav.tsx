@@ -13,7 +13,7 @@ import {
 } from "@dnd-kit/sortable";
 
 import { useDrag } from "@/hooks/useDrag";
-import { AddPageButton, Button } from "./Buttons";
+import { AddPageButton, AddPageButtonIcon, Button } from "./Buttons";
 import { DraggableListItem } from "./DragableListItem";
 
 export const Nav = ({ className }: { className: string }) => {
@@ -51,13 +51,13 @@ export const Nav = ({ className }: { className: string }) => {
               </DraggableListItem>
               {idx !== pages.length - 1 && (
                 <li className="flex items-center">
-                  <AddPageButton onClick={() => handleAddPage(page.id)} />
+                  <AddPageButtonIcon onClick={() => handleAddPage(page.id)} />
                 </li>
               )}
             </React.Fragment>
           ))}
           <li>
-            <AddPageButton mode="label" onClick={() => handleAddPage()} />
+            <AddPageButton onClick={() => handleAddPage()} />
           </li>
         </ul>
       </SortableContext>

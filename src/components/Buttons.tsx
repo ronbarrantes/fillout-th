@@ -13,36 +13,42 @@ type CustomButton = {
   iconClassName?: string;
 };
 
-export const AddPageButton = ({
-  mode = "icon",
-  onClick,
-}: {
-  onClick: () => void;
-  mode?: "icon" | "label";
-}) => {
+export const AddPageButtonIcon = ({ onClick }: { onClick: () => void }) => {
   return (
     <ButtonPrimitive
       onClick={onClick}
       className={classNames(
-        "border !border-slate-300/60 !bg-white text-sm !text-black hover:!border-slate-400 hover:shadow-sm hover:!outline-none focus:!outline-none",
-        mode === "icon" && "!m-0 h-fit w-fit !rounded-full !p-0",
-        mode === "label" && "group flex gap-2 !rounded-md !p-4 !pl-3"
+        "group !m-0 !w-0 !border-none !bg-transparent !p-3 text-sm !text-black shadow-none",
+        "hover:!px-8",
+        "focus:!outline-none"
       )}
     >
       <Icon
         name="add"
         className={classNames(
-          "m-0",
-          mode === "icon" && "size-4 p-0.5",
-          mode === "label" && "size-5 p-0 group-hover:text-amber-500"
+          "hidden transition-all",
+          "m-0 size-0 rounded-full border border-slate-300/60 bg-white p-0.5 group-hover:size-4.5",
+          "group-hover:flex group-hover:shadow-sm group-hover:!outline-none hover:!border-slate-400"
         )}
       />
-      <span className={classNames(mode === "icon" && "sr-only")}>Add page</span>
+
+      <span className="sr-only">Add page</span>
     </ButtonPrimitive>
   );
 };
 
-//  COMPONENTS Button
+export const AddPageButton = ({ onClick }: { onClick: () => void }) => {
+  return (
+    <ButtonPrimitive
+      onClick={onClick}
+      className="group ml-6 flex gap-2 !rounded-md border !border-slate-300/60 !bg-white !p-4 !pl-3 text-sm !text-black hover:!border-slate-400 hover:shadow-sm hover:!outline-none focus:!outline-none"
+    >
+      <Icon name="add" className="m-0 size-5 p-0 group-hover:text-amber-500" />
+      <span>Add page</span>
+    </ButtonPrimitive>
+  );
+};
+
 export const Button = ({
   style,
   children,
